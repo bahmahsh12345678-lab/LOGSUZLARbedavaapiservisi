@@ -1,27 +1,188 @@
 /**
  * Logsuzlar Service - Vercel Serverless API Proxy
- * Tek dosya, tüm API'ler arka planda, reklam temizler.
+ * Kaynak: punisherservis.alwaysdata.net
+ * Reklam temizler: developer, version, @SiberciAlemde
  */
 
-// ============================================
-// API HARİTASI (Her API kendi kaynağına bağlı)
-// ============================================
 const API_MAP = {
-  // --- AJAXSYSTEMS.FUN ---
+  // ==== KİMLİK ====
   tc: {
     name: "TC Sorgu",
     icon: "fa-id-card",
     badge: "free",
-    url: "https://apiv2.ajaxsystems.fun/tc.php",
+    url: "https://punisherservis.alwaysdata.net/apiservices/tc.php",
     params: ["tc"],
     demo: { tc: "11111111110" },
     fixed: {},
   },
+  tcpro: {
+    name: "TC Pro",
+    icon: "fa-id-card",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/tcpro.php",
+    params: ["tc"],
+    demo: { tc: "11111111110" },
+    fixed: {},
+  },
+  adsoyad: {
+    name: "Ad Soyad",
+    icon: "fa-user",
+    badge: "free",
+    url: "https://punisherservis.alwaysdata.net/apiservices/adsoyad.php",
+    params: ["ad", "soyad"],
+    demo: { ad: "roket", soyad: "atar" },
+    fixed: {},
+  },
+  adsoyadpro: {
+    name: "Ad Soyad Pro",
+    icon: "fa-user-shield",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/adsoyadpro.php",
+    params: ["ad", "soyad"],
+    demo: { ad: "roket", soyad: "atar" },
+    fixed: {},
+  },
+
+  // ==== AİLE ====
+  aile: {
+    name: "Aile",
+    icon: "fa-users",
+    badge: "free",
+    url: "https://punisherservis.alwaysdata.net/apiservices/aile.php",
+    params: ["tc"],
+    demo: { tc: "11111111110" },
+    fixed: {},
+  },
+  ailepro: {
+    name: "Aile Pro",
+    icon: "fa-users",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/ailepro.php",
+    params: ["tc"],
+    demo: { tc: "11111111110" },
+    fixed: {},
+  },
+  cocuk: {
+    name: "Çocuk",
+    icon: "fa-child",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/cocuk.php",
+    params: ["tc"],
+    demo: { tc: "11111111110" },
+    fixed: {},
+  },
+  es: {
+    name: "Eş",
+    icon: "fa-heart",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/es.php",
+    params: ["tc"],
+    demo: { tc: "11111111110" },
+    fixed: {},
+  },
+  kardes: {
+    name: "Kardeş",
+    icon: "fa-user-friends",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/kardes.php",
+    params: ["tc"],
+    demo: { tc: "11111111110" },
+    fixed: {},
+  },
+
+  // ==== DOĞUM ====
+  dogumtililce: {
+    name: "Doğum Tarih İl İlçe",
+    icon: "fa-calendar-alt",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/dogumtililce.php",
+    params: ["dogumt", "il", "ilce"],
+    demo: { dogumt: "17.03.1998", il: "istanbul", ilce: "buyukcekmece" },
+    fixed: {},
+  },
+  soyaddogumt: {
+    name: "Soyad Doğum",
+    icon: "fa-calendar",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/soyaddogumt.php",
+    params: ["soyad", "dogumt"],
+    demo: { soyad: "deniz", dogumt: "17.03.1998" },
+    fixed: {},
+  },
+
+  // ==== ADRES & SÜLALE ====
+  adres: {
+    name: "Adres",
+    icon: "fa-map-marker-alt",
+    badge: "free",
+    url: "https://punisherservis.alwaysdata.net/apiservices/adres.php",
+    params: ["tc"],
+    demo: { tc: "11111111110" },
+    fixed: {},
+  },
+  sulale: {
+    name: "Sülale",
+    icon: "fa-tree",
+    badge: "free",
+    url: "https://punisherservis.alwaysdata.net/apiservices/sulale.php",
+    params: ["tc"],
+    demo: { tc: "11111111110" },
+    fixed: {},
+  },
+  sulalepro: {
+    name: "Sülale Pro",
+    icon: "fa-sitemap",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/sulalepro.php",
+    params: ["tc"],
+    demo: { tc: "11111111110" },
+    fixed: {},
+  },
+
+  // ==== RESMİ ====
+  isyeri: {
+    name: "İş Yeri",
+    icon: "fa-building",
+    badge: "free",
+    url: "https://punisherservis.alwaysdata.net/apiservices/isyeri.php",
+    params: ["tc"],
+    demo: { tc: "11144576054" },
+    fixed: {},
+  },
+  tapu: {
+    name: "Tapu",
+    icon: "fa-handshake",
+    badge: "free",
+    url: "https://punisherservis.alwaysdata.net/apiservices/tapu.php",
+    params: ["tc"],
+    demo: { tc: "27727166918" },
+    fixed: {},
+  },
+  iban: {
+    name: "IBAN",
+    icon: "fa-credit-card",
+    badge: "pro",
+    url: "https://punisherservis.alwaysdata.net/apiservices/iban.php",
+    params: ["iban"],
+    demo: { iban: "TR280006256953335759003718" },
+    fixed: {},
+  },
+  gncloperator: {
+    name: "Operatör Sorgu",
+    icon: "fa-signal",
+    badge: "free",
+    url: "https://punisherservis.alwaysdata.net/apiservices/gncloperator.php",
+    params: ["numara"],
+    demo: { numara: "5315312472" },
+    fixed: {},
+  },
+
+  // ==== GSM ====
   tcgsm: {
     name: "TC → GSM",
     icon: "fa-phone",
     badge: "free",
-    url: "https://apiv2.ajaxsystems.fun/tcgsm.php",
+    url: "https://punisherservis.alwaysdata.net/apiservices/tcgsm.php",
     params: ["tc"],
     demo: { tc: "11111111110" },
     fixed: {},
@@ -30,112 +191,60 @@ const API_MAP = {
     name: "GSM → TC",
     icon: "fa-phone-alt",
     badge: "free",
-    url: "https://apiv2.ajaxsystems.fun/gsmtc.php",
+    url: "https://punisherservis.alwaysdata.net/apiservices/gsmtc.php",
     params: ["gsm"],
-    demo: { gsm: "5550000000" },
-    fixed: { auth: "fire" },
-  },
-  adres: {
-    name: "Adres",
-    icon: "fa-map-marker-alt",
-    badge: "free",
-    url: "https://apiv2.ajaxsystems.fun/adres.php",
-    params: ["tc"],
-    demo: { tc: "11111111110" },
+    demo: { gsm: "5415722525" },
     fixed: {},
-  },
-
-  // --- SOLIDARKSYSTEMS ---
-  adsoyad: {
-    name: "Ad Soyad + Adres",
-    icon: "fa-user",
-    badge: "pro",
-    url: "https://solidarksystems.alwaysdata.net/adsoyad.php",
-    params: ["ad", "soyad", "il", "ilce"],
-    demo: { ad: "roket", soyad: "atar", il: "bursa", ilce: "osmangazi" },
-    fixed: {},
-  },
-  ailepro: {
-    name: "Aile Pro",
-    icon: "fa-users",
-    badge: "pro",
-    url: "https://solidarksystems.alwaysdata.net/ailepro.php",
-    params: ["tc"],
-    demo: { tc: "12481393922" },
-    fixed: {},
-  },
-  sgk: {
-    name: "SGK",
-    icon: "fa-briefcase",
-    badge: "pro",
-    url: "https://solidarksystems.alwaysdata.net/sgk.php",
-    params: ["tc"],
-    demo: { tc: "10001336992" },
-    fixed: {},
-  },
-  sulale: {
-    name: "Sülale",
-    icon: "fa-tree",
-    badge: "pro",
-    url: "https://solidarksystems.alwaysdata.net/sulale.php",
-    params: ["tc"],
-    demo: { tc: "12481393922" },
-    fixed: {},
-  },
-
-  // --- SORGUTRGBL (Özel format) ---
-  adsoyad_glb: {
-    name: "Ad Soyad (GLB)",
-    icon: "fa-user-tag",
-    badge: "free",
-    url: "https://sorgutrglb.alwaysdata.net/adsoyad",
-    params: ["ad", "soyad"],
-    demo: { ad: "roket", soyad: "atar" },
-    fixed: {},
-    special: true,
-  },
-  adsoyadpro_glb: {
-    name: "Ad Soyad Pro (GLB)",
-    icon: "fa-user-shield",
-    badge: "pro",
-    url: "https://sorgutrglb.alwaysdata.net/adsoyadpro",
-    params: ["ad", "soyad"],
-    demo: { ad: "roket", soyad: "atar" },
-    fixed: {},
-    special: true,
   },
 };
 
 // ============================================
 // REKLAM TEMİZLEME
 // ============================================
-function reklamTemizle(veri) {
-  if (typeof veri !== "string") veri = JSON.stringify(veri);
+function reklamTemizle(text) {
+  if (typeof text !== "string") {
+    text = JSON.stringify(text);
+  }
 
-  const patterns = [
-    /@jessy_php/giu,
-    /jessy_php/giu,
-    /jessy/giu,
-    /auth\s*[=:]\s*developer/giu,
-    /auth\s*[=:]\s*fire/giu,
-    /developer/giu,
-    /t\.me\/[a-zA-Z0-9_]+/giu,
-    /https?:\/\/t\.me\/\S+/giu,
-    /https?:\/\/telegram\.me\/\S+/giu,
-    /kanal[ıi]m[ıi]z[:\s]*\S+/giu,
-    /kanal[:\s]*@?\S+/giu,
-    /reklam[:\s]*\S+/giu,
-    /sponsor[:\s]*\S+/giu,
-    /\bby\s*@\S+/giu,
-    /\bapi\s*by\s*\S+/giu,
+  // Silinecek reklam satırları (developer, version vs.)
+  const satir_patternleri = [
+    /^\s*"developer"\s*:\s*"[^"]*"\s*,?\s*$/gim,
+    /^\s*"version"\s*:\s*"[^"]*"\s*,?\s*$/gim,
+    /^\s*"sürüm"\s*:\s*"[^"]*"\s*,?\s*$/gim,
+    /^\s*"surum"\s*:\s*"[^"]*"\s*,?\s*$/gim,
+    /^\s*"author"\s*:\s*"[^"]*"\s*,?\s*$/gim,
+    /^\s*"yapimci"\s*:\s*"[^"]*"\s*,?\s*$/gim,
   ];
 
-  let temiz = veri;
-  for (const p of patterns) temiz = temiz.replace(p, "");
+  for (const p of satir_patternleri) {
+    text = text.replace(p, "");
+  }
 
-  temiz = temiz.replace(/[ \t]+/g, " ");
-  temiz = temiz.replace(/\n{2,}/g, "\n");
-  return temiz.trim();
+  // Direkt metin silme
+  const metin_patternleri = [
+    /@SiberciAlemde/gi,
+    /@sibercialemde/gi,
+    /SiberciAlemde/gi,
+    /sibercialemde/gi,
+    /@jessy_php/gi,
+    /jessy_php/gi,
+    /jessy/gi,
+    /auth=developer/gi,
+    /auth=fire/gi,
+    /developer/gi,
+  ];
+
+  for (const p of metin_patternleri) {
+    text = text.replace(p, "");
+  }
+
+  // Ard arda gelen virgülleri ve boş alanları temizle
+  text = text.replace(/,\s*,/g, ",");
+  text = text.replace(/,\s*([}\]])/g, "$1");
+  text = text.replace(/[ \t]+/g, " ");
+  text = text.replace(/\n{2,}/g, "\n");
+
+  return text.trim();
 }
 
 // ============================================
@@ -153,28 +262,17 @@ function buildUrl(config, query) {
     queryParts[k] = v;
   }
 
-  if (config.special) {
-    const first = config.params[0];
-    let url = config.url + "=" + first + "=" + encodeURIComponent(queryParts[first] || "");
-    for (let i = 1; i < config.params.length; i++) {
-      const p = config.params[i];
-      if (queryParts[p]) url += "&" + p + "=" + encodeURIComponent(queryParts[p]);
-    }
-    return url;
-  }
-
   const qs = new URLSearchParams(queryParts).toString();
   return config.url + "?" + qs;
 }
 
 // ============================================
-// API LİSTESİNİ DÖN (Arayüz için)
+// API LİSTESİ
 // ============================================
 function getApiList(origin) {
   const list = [];
 
   for (const [key, cfg] of Object.entries(API_MAP)) {
-    // Demo URL üret
     let demoUrl = origin + "/api/sorgu?api=" + key;
     for (const [k, v] of Object.entries(cfg.demo || {})) {
       demoUrl += "&" + k + "=" + encodeURIComponent(v);
@@ -205,14 +303,13 @@ export default async function handler(req, res) {
 
   if (req.method === "OPTIONS") return res.status(200).end();
 
-  // Sitenin kendi origin'ini al (Vercel otomatik verir)
   const proto = req.headers["x-forwarded-proto"] || "https";
   const host = req.headers["x-forwarded-host"] || req.headers.host || "localhost";
   const origin = proto + "://" + host;
 
   const apiKey = req.query.api;
 
-  // ==== LİSTE KOMUTU ====
+  // ==== LİSTE ====
   if (apiKey === "list") {
     return res.status(200).json({
       success: true,
@@ -221,7 +318,7 @@ export default async function handler(req, res) {
     });
   }
 
-  // ==== GEÇERSİZ API ====
+  // ==== GEÇERSİZ ====
   if (!apiKey || !API_MAP[apiKey]) {
     return res.status(400).json({
       success: false,
@@ -231,7 +328,7 @@ export default async function handler(req, res) {
 
   const config = API_MAP[apiKey];
 
-  // Zorunlu parametre kontrolü
+  // Zorunlu parametre
   const required = config.params[0];
   if (required && !req.query[required]) {
     return res.status(400).json({
@@ -240,10 +337,9 @@ export default async function handler(req, res) {
     });
   }
 
-  // URL oluştur
   const targetUrl = buildUrl(config, req.query);
 
-  // İstek at
+  // ==== İSTEK ====
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20000);
@@ -274,6 +370,7 @@ export default async function handler(req, res) {
       });
     }
 
+    // Reklam temizle
     const temiz = reklamTemizle(text);
 
     let parsed = null;
